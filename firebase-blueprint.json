@@ -1,0 +1,160 @@
+{
+  "entities": {
+    "SystemSettings": {
+      "title": "SystemSettings",
+      "description": "Global cooperative system settings, branding, financial configurations and notices",
+      "type": "object",
+      "properties": {
+        "org_name": { "type": "string" },
+        "org_subtitle": { "type": "string" },
+        "reg_no": { "type": "string" },
+        "est_year": { "type": "number" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "hotline": { "type": "string" },
+        "emergency_contact": { "type": "string" },
+        "announcement_headline": { "type": "string" },
+        "announcement_details": { "type": "string" },
+        "share_value": { "type": "number" },
+        "target_capital": { "type": "number" },
+        "current_capital": { "type": "number" },
+        "total_shareholders": { "type": "number" },
+        "minimum_shares": { "type": "number" },
+        "maximum_shares": { "type": "number" }
+      }
+    },
+    "Member": {
+      "title": "Member",
+      "description": "Cooperative members with profile, shareholdings, and role",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "full_name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "member", "auditor"] },
+        "status": { "type": "string", "enum": ["active", "pending", "blocked"] },
+        "owned_shares": { "type": "number" },
+        "monthly_target": { "type": "number" },
+        "joined_date": { "type": "string" }
+      },
+      "required": ["id", "full_name", "email", "role", "status"]
+    },
+    "Deposit": {
+      "title": "Deposit",
+      "description": "Member deposits and vouchers with payment proofs and approvals",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "member_id": { "type": "string" },
+        "member_name": { "type": "string" },
+        "amount": { "type": "number" },
+        "type": { "type": "string", "enum": ["monthly", "lumpsum", "share_purchase"] },
+        "payment_method": { "type": "string" },
+        "trx_id": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string", "enum": ["approved", "pending", "rejected"] },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "member_id", "amount", "type", "payment_method", "trx_id", "status"]
+    },
+    "LandProject": {
+      "title": "LandProject",
+      "description": "Cooperative acquired land projects and development ventures",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "location": { "type": "string" },
+        "total_area_decimal": { "type": "number" },
+        "total_cost": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "title", "location", "total_area_decimal", "total_cost", "status"]
+    },
+    "Director": {
+      "title": "Director",
+      "description": "Executive board members and management committee",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "designation": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" }
+      },
+      "required": ["id", "name", "designation"]
+    },
+    "LandPoll": {
+      "title": "LandPoll",
+      "description": "Member polling for land acquisition and decision making",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "closed"] },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "title", "status"]
+    },
+    "AppNotification": {
+      "title": "AppNotification",
+      "description": "In-app notifications for members and admins",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "target_member_id": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "created_at": { "type": "string" },
+        "read": { "type": "boolean" }
+      },
+      "required": ["id", "target_member_id", "title", "message", "read"]
+    }
+  },
+  "firestore": {
+    "/system_settings/{settingId}": {
+      "schema": "SystemSettings",
+      "description": "System settings and configuration"
+    },
+    "/members/{memberId}": {
+      "schema": "Member",
+      "description": "Cooperative members list"
+    },
+    "/deposits/{depositId}": {
+      "schema": "Deposit",
+      "description": "Deposit vouchers and transaction history"
+    },
+    "/land_projects/{projectId}": {
+      "schema": "LandProject",
+      "description": "Land investment projects"
+    },
+    "/directors/{directorId}": {
+      "schema": "Director",
+      "description": "Board of directors"
+    },
+    "/public_submissions/{submissionId}": {
+      "schema": { "$ref": "PublicLandSubmission" },
+      "description": "Public land purchase/sell submissions"
+    },
+    "/buy_proposals/{proposalId}": {
+      "schema": { "$ref": "LandBuyProposal" },
+      "description": "Land buy proposals"
+    },
+    "/member_proposals/{proposalId}": {
+      "schema": { "$ref": "MemberLandProposal" },
+      "description": "Member land proposals"
+    },
+    "/polls/{pollId}": {
+      "schema": "LandPoll",
+      "description": "Voting and opinion polls"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "AppNotification",
+      "description": "System alerts and notifications"
+    }
+  }
+}

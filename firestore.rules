@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128;
+    }
+
+    // System Settings & CMS
+    match /system_settings/{settingId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Members Collection
+    match /members/{memberId} {
+      allow read: if true;
+      allow write: if isValidId(memberId);
+    }
+
+    // Deposits Collection
+    match /deposits/{depositId} {
+      allow read: if true;
+      allow write: if isValidId(depositId);
+    }
+
+    // Land Projects Collection
+    match /land_projects/{projectId} {
+      allow read: if true;
+      allow write: if isValidId(projectId);
+    }
+
+    // Directors Collection
+    match /directors/{directorId} {
+      allow read: if true;
+      allow write: if isValidId(directorId);
+    }
+
+    // Public Submissions (Offers/Proposals)
+    match /public_submissions/{submissionId} {
+      allow read: if true;
+      allow write: if isValidId(submissionId);
+    }
+
+    // Buy Proposals
+    match /buy_proposals/{proposalId} {
+      allow read: if true;
+      allow write: if isValidId(proposalId);
+    }
+
+    // Member Proposals
+    match /member_proposals/{proposalId} {
+      allow read: if true;
+      allow write: if isValidId(proposalId);
+    }
+
+    // Polls & Voting
+    match /polls/{pollId} {
+      allow read: if true;
+      allow write: if isValidId(pollId);
+    }
+
+    // Notifications
+    match /notifications/{notificationId} {
+      allow read: if true;
+      allow write: if isValidId(notificationId);
+    }
+
+    // Fallback collection match
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

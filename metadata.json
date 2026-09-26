@@ -1,0 +1,6 @@
+{
+  "name": "বন্ধন ও বিনিয়োগ (BONDHON O BINIYOG)",
+  "description": "যৌথ স্বপ্ন • নিশ্চিত ভবিষ্যৎ — ভূমি সমবায় বিনিয়োগ ও সঞ্চয় ব্যবস্থাপনা প্ল্যাটফর্ম",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
